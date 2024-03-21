@@ -1,0 +1,20 @@
+#!/bin/bash
+
+if [ "${1}" = "" ]; then
+    echo "Please, set directory"
+    exit 1
+fi
+
+if ! [ -d "${1}" ]; then
+    echo "${1} is not directory"
+    exit 1
+fi
+
+pushd ${1} || exit 1
+
+    #TODO: realese checks
+    git submodule update --init
+    meson build/
+    ninja -C build/
+
+popd || exit 1
